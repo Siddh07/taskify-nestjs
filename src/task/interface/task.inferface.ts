@@ -6,3 +6,4 @@ export interface ITask {
     updatedAt?: Date;
     completed: boolean;
 }
+
