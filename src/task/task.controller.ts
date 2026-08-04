@@ -1,25 +1,18 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TaskService } from './task.service';
-import type { ITask } from './interface/task.inferface';
 import { CreateTaskDto } from './dto/create-task.dto';
-
 
 @Controller('task')
 export class TaskController {
+  constructor(private readonly taskService: TaskService) {}
 
-    constructor(private readonly taskService: TaskService) { }
+  @Get()
+  async findAllTasks() {
+    return this.taskService.findAllTasks();
+  }
 
-    @Get()
-    findAllTasks(): ITask[] {
-        return this.taskService.findAllTasks();
-    }
-
-
-    @Post()
-    createTask(@Body() createTaskDto: CreateTaskDto): ITask {
-        return this.taskService.createTask(createTaskDto);
-    }
-
-
-
+  @Post()
+  async createTask(@Body() createTaskDto: CreateTaskDto) {
+    return this.taskService.createTask(createTaskDto);
+  }
 }
